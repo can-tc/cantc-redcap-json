@@ -1,0 +1,385 @@
+[
+  {
+    "form_name": "Patient Information",
+    "event_name": "enrolment",
+    "sections": [
+      {
+        "section_name": "demographics",
+        "fields": [
+          {
+            "variable_name": "age_at_diagnosis",
+            "input_type": "text",
+            "data_type": "float",
+            "optionality": "mandatory"
+          },
+          {
+            "variable_name": "sex",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "0",
+              "1",
+              "na"
+            ]
+          },
+          {
+            "variable_name": "postal_code_available",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no"
+            ],
+            "dependent": [
+              {
+                "variable_name": "postal_code",
+                "input_type": "text",
+                "data_type": "string",
+                "optionality": "mandatory",
+                "condition": "postal_code_available set to yes"
+              },
+              {
+                "variable_name": "income_quintile_at_diagnosis",
+                "condition": "no selected above"
+              },
+              {
+                "variable_name": "urban_rural_sac_code",
+                "condition": "no selected above"
+              },
+              {
+                "variable_name": "current_income_quintile",
+                "condition": "no selected above"
+              },
+              {
+                "variable_name": "current_urban_rural_code",
+                "condition": "no selected above"
+              },
+              {
+                "variable_name": "geographical_distance_to_tertiary_centre",
+                "condition": "no selected above"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Location of Surgery",
+        "fields": [
+          {
+            "variable_name": "country_of_surgery",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Canada",
+              "Other"
+            ],
+            "dependent": [
+              {
+                "variable_name": "city_of_surgery",
+                "input_type": "select",
+                "data_type": "string",
+                "optionality": "optional",
+                "condition": "country_of_surgery set to canada"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Family History of Thyroid Cancer",
+        "fields": [
+          {
+            "variable_name": "first_degree_family_history",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Yes",
+              "no",
+              "n/a"
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Prior Radiation Exposure",
+        "fields": [
+          {
+            "variable_name": "prior_radiation_exposure",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Therpeutic",
+              "non_diagnostic",
+              "none",
+              "n/a"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "form_name": "Surgical Pathology",
+    "event_name": "enrolment",
+    "sections": [
+      {
+        "section_name": "Surgery Information",
+        "fields": [
+          {
+            "variable_name": "date_of_diagnosis",
+            "input_type": "text",
+            "data_type": "date",
+            "optionality": "mandatory"
+          },
+          {
+            "variable_name": "surgery_type",
+            "input_type": "checkbox",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Thyroid",
+              "Neck Dissection"
+            ],
+            "dependent": [
+              {
+                "variable_name": "throid_surgery_type",
+                "input_type": "radio",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "total",
+                  "hemi",
+                  "lobectomy"
+                ],
+                "condition": "thyroid selected"
+              },
+              {
+                "variable_name": "neck_dissection_type",
+                "input_type": "checkbox",
+                "data_type": "string",
+                "optionality": "mandatory",
+                "values": [
+                  "Central",
+                  "Lateral",
+                  "Mediastinal"
+                ],
+                "condition": "neck dissection selected",
+                "dependent": [
+                  {
+                    "variable_name": "cnd_location",
+                    "input_type": "select",
+                    "data_type": "string",
+                    "optionality": "mandatory",
+                    "values": [
+                      "Left",
+                      "Right",
+                      "Left/Right",
+                      "na"
+                    ],
+                    "condition": "Central selected"
+                  },
+                  {
+                    "variable_name": "lnd_location",
+                    "input_type": "select",
+                    "data_type": "string",
+                    "optionality": "mandatory",
+                    "values": [
+                      "Left",
+                      "Right",
+                      "Left/Right",
+                      "na"
+                    ],
+                    "condition": "Lateral selected"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Histology",
+        "fields": [
+          {
+            "variable_name": "nodule_distribution",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Single",
+              "Multifocal",
+              "Unknown"
+            ]
+          },
+          {
+            "variable_name": "histology_type",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Single",
+              "Multiple"
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Dominant Tumour",
+        "fields": [
+          {
+            "variable_name": "primary_histology_type",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Papillary Carcinoma",
+              "Follicular Carcinoma",
+              "Poorly Differentiated",
+              "Anaplastic",
+              "Medullary",
+              "Carcinoma Type cannot be determined"
+            ],
+            "dependent": [
+              {
+                "variable_name": "papillary_variant",
+                "input_type": "select",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "Classical",
+                  "Follicular (encapsulated)",
+                  "Follicular (infiltractive)",
+                  "Follicular (not specified)",
+                  "Oncocytic (Hurthle)",
+                  "Tall Cell",
+                  "Cribriform-Morular",
+                  "Diffuse Sclerosing",
+                  "NIFTP (non-invasive follicular variant of papillary)"
+                ],
+                "condition": "Papillary Carcinoma selected"
+              },
+              {
+                "variable_name": "follicular_variant",
+                "input_type": "select",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "Oncocytic (Hurthle)",
+                  "Other"
+                ],
+                "condition": "Follicular Carcinoma selected"
+              },
+              {
+                "variable_name": "poorly_diff_variant",
+                "input_type": "select",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "None",
+                  "Insular"
+                ],
+                "condition": "Poorly differentiated selected"
+              }
+            ]
+          },
+          {
+            "variable_name": "tumour_size",
+            "input_type": "text",
+            "data_type": "float",
+            "optionality": "mandatory"
+          },
+          {
+            "variable_name": "positive_margins",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ]
+          },
+          {
+            "variable_name": "angioinvasion",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ],
+            "dependent": [
+              {
+                "variable_name": "angioinvasion_details",
+                "input_type": "select",
+                "data_type": "string",
+                "optionality": "mandatory",
+                "values": [
+                  "More than 4 vessels",
+                  "na"
+                ],
+                "condition": "yes selected"
+              }
+            ]
+          },
+          {
+            "variable_name": "lmyphatic_invasion",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ]
+          },
+          {
+            "variable_name": "perineural_invasion",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ]
+          },
+          {
+            "variable_name": "extrathyroidal_extension",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ],
+            "dependent": [
+              {
+                "variable_name": "ete_details",
+                "input_type": "radio",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "Minimal",
+                  "Extensive",
+                  "na"
+                ],
+                "condition": "yes selected"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Lymph Nodal Involvement"
+      }
+    ]
+  }
+]
