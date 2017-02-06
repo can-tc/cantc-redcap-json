@@ -82,7 +82,25 @@
                 "input_type": "select",
                 "data_type": "string",
                 "optionality": "optional",
-                "condition": "country_of_surgery set to canada"
+                "condition": "country_of_surgery set to canada",
+                "dependent": [
+                  {
+                    "variable_name": "hospital_fs",
+                    "input_type": "text",
+                    "data_type": "string",
+                    "optionality": "optional",
+                    "condition": "city of surgery is not null",
+                    "dependent": [
+                      {
+                        "variable_name": "type_facility",
+                        "input_type": "radio",
+                        "date_type": "string",
+                        "optionality": "optional",
+                        "condition": "hospital_fs is not null"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
@@ -229,7 +247,7 @@
         ]
       },
       {
-        "section_name": "Dominant Tumour",
+        "section_name": "Dominant Tumour Histology",
         "fields": [
           {
             "variable_name": "primary_histology_type",
@@ -316,7 +334,7 @@
             ],
             "dependent": [
               {
-                "variable_name": "angioinvasion_details",
+                "variable_name": "angio_invasion_details",
                 "input_type": "select",
                 "data_type": "string",
                 "optionality": "mandatory",
@@ -374,11 +392,266 @@
                 "condition": "yes selected"
               }
             ]
+          },
+          {
+            "variable_name": "lymph_vascular_invasion",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Yes",
+              "No",
+              "Cannot be assessed"
+            ],
+            "dependent": [
+              {
+                "variable_name": "lvi_details",
+                "input_type": "radio",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "More than 4 vessels",
+                  "n/a"
+                ]
+              }
+            ]
           }
         ]
       },
       {
-        "section_name": "Lymph Nodal Involvement"
+        "section_name": "Secondary Tumour Histology",
+        "fields": [
+          {
+            "variable_name": "secondary_histology_type",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Papillary Carcinoma",
+              "Follicular Carcinoma",
+              "Poorly Differentiated",
+              "Anaplastic",
+              "Medullary",
+              "Carcinoma Type cannot be determined"
+            ],
+            "dependent": [
+              {
+                "variable_name": "st_papillary_variant",
+                "input_type": "select",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "Classical",
+                  "Follicular (encapsulated)",
+                  "Follicular (infiltractive)",
+                  "Follicular (not specified)",
+                  "Oncocytic (Hurthle)",
+                  "Tall Cell",
+                  "Cribriform-Morular",
+                  "Diffuse Sclerosing",
+                  "NIFTP (non-invasive follicular variant of papillary)"
+                ],
+                "condition": "Papillary Carcinoma selected"
+              },
+              {
+                "variable_name": "st_follicular_variant",
+                "input_type": "select",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "Oncocytic (Hurthle)",
+                  "Other"
+                ],
+                "condition": "Follicular Carcinoma selected"
+              },
+              {
+                "variable_name": "st_poorly_diff_variant",
+                "input_type": "select",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "None",
+                  "Insular"
+                ],
+                "condition": "Poorly differentiated selected"
+              }
+            ]
+          },
+          {
+            "variable_name": "st_tumour_size",
+            "input_type": "text",
+            "data_type": "float",
+            "optionality": "mandatory"
+          },
+          {
+            "variable_name": "st_positive_margins",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ]
+          },
+          {
+            "variable_name": "st_angio_invasion",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ],
+            "dependent": [
+              {
+                "variable_name": "st_angio_invasion_details",
+                "input_type": "select",
+                "data_type": "string",
+                "optionality": "mandatory",
+                "values": [
+                  "More than 4 vessels",
+                  "na"
+                ],
+                "condition": "yes selected"
+              }
+            ]
+          },
+          {
+            "variable_name": "st_lmyphatic_invasion",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ]
+          },
+          {
+            "variable_name": "st_perineural_invasion",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ]
+          },
+          {
+            "variable_name": "st_extrathyroidal_extension",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ],
+            "dependent": [
+              {
+                "variable_name": "st_ete_details",
+                "input_type": "radio",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "Minimal",
+                  "Extensive",
+                  "na"
+                ],
+                "condition": "yes selected"
+              }
+            ]
+          },
+          {
+            "variable_name": "st_lymph_vascular_invasion",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Yes",
+              "No",
+              "Cannot be assessed"
+            ],
+            "dependent": [
+              {
+                "variable_name": "st_lvi_details",
+                "input_type": "radio",
+                "data_type": "string",
+                "optionality": "optional",
+                "values": [
+                  "More than 4 vessels",
+                  "n/a"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Lymph Nodal Involvement",
+        "fields": [
+          {
+            "variable_name": "total_lymph_nodes",
+            "input_type": "text",
+            "data_type": "string",
+            "optionality": "madatory",
+            "dependent": [
+              {
+                "variable_name": "ln_na",
+                "input_type": "checkbox",
+                "data_type": "text",
+                "optionality": "optional",
+                "condition": "total_lymph_nodes >= 1",
+                "dependent": [
+                  {
+                    "variable_name": "positive_lymph_nodes",
+                    "input_type": "text",
+                    "data_type": "integer",
+                    "optionality": "mandatory",
+                    "condition": "ln_na not checked and total_lmph_nodes > 0",
+                    "dependent": [
+                      {
+                        "variable_name": "location_lymph_nodes",
+                        "input_type": "select",
+                        "data_type": "text",
+                        "optionality": "mandatory",
+                        "values": [
+                          "N1a(central)",
+                          "N1b(lateral and/or mediastinal",
+                          "N1a/N1b(Central/lateral/mediastinal",
+                          "n/a"
+                        ],
+                        "condition": "positive_lymph_nodes >= 1"
+                      },
+                      {
+                        "variable_name": "extranodal_extension",
+                        "input_type": "select",
+                        "data_type": "string",
+                        "optionality": "mandatory",
+                        "values": [
+                          "yes",
+                          "no",
+                          "cannot be assessed"
+                        ],
+                        "condition": "positive_lymph_nodes >= 1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "variable_name": "size_ln",
+                "input_type": "text",
+                "data_type": "string",
+                "optionality": "optional",
+                "condition": "total_lymph_nodes >= 1"
+              }
+            ]
+          }
+        ]
       }
     ]
   }
