@@ -31,36 +31,52 @@
             "values": [
               "yes",
               "no"
-            ],
-            "dependent": [
-              {
-                "variable_name": "postal_code",
-                "input_type": "text",
-                "data_type": "string",
-                "optionality": "mandatory",
-                "condition": "postal_code_available set to yes"
-              },
-              {
-                "variable_name": "income_quintile_at_diagnosis",
-                "condition": "no selected above"
-              },
-              {
-                "variable_name": "urban_rural_sac_code",
-                "condition": "no selected above"
-              },
-              {
-                "variable_name": "current_income_quintile",
-                "condition": "no selected above"
-              },
-              {
-                "variable_name": "current_urban_rural_code",
-                "condition": "no selected above"
-              },
-              {
-                "variable_name": "geographical_distance_to_tertiary_centre",
-                "condition": "no selected above"
-              }
             ]
+          },
+          {
+            "variable_name": "postal_code",
+            "input_type": "text",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "ancestor": [
+              "postal_code_available"
+            ],
+            "condition": "postal_code_available set to yes"
+          },
+          {
+            "variable_name": "income_quintile_at_diagnosis",
+            "ancestor": [
+              "postal_code_available"
+            ],
+            "condition": "no selected above"
+          },
+          {
+            "variable_name": "urban_rural_sac_code",
+            "ancestor": [
+              "postal_code_available"
+            ],
+            "condition": "no selected above"
+          },
+          {
+            "variable_name": "current_income_quintile",
+            "ancestor": [
+              "postal_code_available"
+            ],
+            "condition": "no selected above"
+          },
+          {
+            "variable_name": "current_urban_rural_code",
+            "ancestor": [
+              "postal_code_available"
+            ],
+            "condition": "no selected above"
+          },
+          {
+            "variable_name": "geographical_distance_to_tertiary_centre",
+            "ancestor": [
+              "postal_code_available"
+            ],
+            "condition": "no selected above"
           }
         ]
       },
@@ -75,34 +91,39 @@
             "values": [
               "Canada",
               "Other"
-            ],
-            "dependent": [
-              {
-                "variable_name": "city_of_surgery",
-                "input_type": "select",
-                "data_type": "string",
-                "optionality": "optional",
-                "condition": "country_of_surgery set to canada",
-                "dependent": [
-                  {
-                    "variable_name": "hospital_fs",
-                    "input_type": "text",
-                    "data_type": "string",
-                    "optionality": "optional",
-                    "condition": "city of surgery is not null",
-                    "dependent": [
-                      {
-                        "variable_name": "type_facility",
-                        "input_type": "radio",
-                        "date_type": "string",
-                        "optionality": "optional",
-                        "condition": "hospital_fs is not null"
-                      }
-                    ]
-                  }
-                ]
-              }
             ]
+          },
+          {
+            "variable_name": "city_of_surgery",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "ancestor": [
+              "country_of_surgery"
+            ],
+            "condition": "country_of_surgery set to canada"
+          },
+          {
+            "variable_name": "hospital_fs",
+            "input_type": "text",
+            "data_type": "string",
+            "optionality": "optional",
+            "ancestor": [
+              "city_of_surgery",
+              "country_of_surgery"
+            ],
+            "condition": "city of surgery is not null"
+          },
+          {
+            "variable_name": "type_facility",
+            "input_type": "radio",
+            "date_type": "string",
+            "optionality": "optional",
+            "ancestor": [
+              "city_of_surgery",
+              "country_of_surgery"
+            ],
+            "condition": "hospital_fs is not null"
           }
         ]
       },
@@ -162,61 +183,74 @@
             "values": [
               "Thyroid",
               "Neck Dissection"
-            ],
-            "dependent": [
-              {
-                "variable_name": "throid_surgery_type",
-                "input_type": "radio",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "total",
-                  "hemi",
-                  "lobectomy"
-                ],
-                "condition": "thyroid selected"
-              },
-              {
-                "variable_name": "neck_dissection_type",
-                "input_type": "checkbox",
-                "data_type": "string",
-                "optionality": "mandatory",
-                "values": [
-                  "Central",
-                  "Lateral",
-                  "Mediastinal"
-                ],
-                "condition": "neck dissection selected",
-                "dependent": [
-                  {
-                    "variable_name": "cnd_location",
-                    "input_type": "select",
-                    "data_type": "string",
-                    "optionality": "mandatory",
-                    "values": [
-                      "Left",
-                      "Right",
-                      "Left/Right",
-                      "na"
-                    ],
-                    "condition": "Central selected"
-                  },
-                  {
-                    "variable_name": "lnd_location",
-                    "input_type": "select",
-                    "data_type": "string",
-                    "optionality": "mandatory",
-                    "values": [
-                      "Left",
-                      "Right",
-                      "Left/Right",
-                      "na"
-                    ],
-                    "condition": "Lateral selected"
-                  }
-                ]
-              }
             ]
+          },
+          {
+            "variable_name": "throid_surgery_type",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "total",
+              "hemi",
+              "lobectomy"
+            ],
+            "ancestor": [
+              "surgery_type"
+            ],
+            "condition": "thyroid selected"
+          },
+          {
+            "variable_name": "neck_dissection_type",
+            "input_type": "checkbox",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Central",
+              "Lateral",
+              "Mediastinal"
+            ],
+            "ancestor": [
+              "surgery_type",
+              "throid_surgery_type"
+            ],
+            "condition": "neck dissection selected"
+          },
+          {
+            "variable_name": "cnd_location",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Left",
+              "Right",
+              "Left/Right",
+              "na"
+            ],
+            "ancestor": [
+              "neck_dissection_type",
+              "throid_surgery_type",
+              "surgery_type"
+            ],
+            "condition": "Central selected"
+          },
+          {
+            "variable_name": "lnd_location",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Left",
+              "Right",
+              "Left/Right",
+              "na"
+            ],
+            "ancestor": [
+              "neck_dissection_type",
+              "throid_surgery_type",
+              "surgery_type"
+            ],
+            "condition": "Lateral selected"
           }
         ]
       },
@@ -261,49 +295,56 @@
               "Anaplastic",
               "Medullary",
               "Carcinoma Type cannot be determined"
-            ],
-            "dependent": [
-              {
-                "variable_name": "papillary_variant",
-                "input_type": "select",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "Classical",
-                  "Follicular (encapsulated)",
-                  "Follicular (infiltractive)",
-                  "Follicular (not specified)",
-                  "Oncocytic (Hurthle)",
-                  "Tall Cell",
-                  "Cribriform-Morular",
-                  "Diffuse Sclerosing",
-                  "NIFTP (non-invasive follicular variant of papillary)"
-                ],
-                "condition": "Papillary Carcinoma selected"
-              },
-              {
-                "variable_name": "follicular_variant",
-                "input_type": "select",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "Oncocytic (Hurthle)",
-                  "Other"
-                ],
-                "condition": "Follicular Carcinoma selected"
-              },
-              {
-                "variable_name": "poorly_diff_variant",
-                "input_type": "select",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "None",
-                  "Insular"
-                ],
-                "condition": "Poorly differentiated selected"
-              }
             ]
+          },
+          {
+            "variable_name": "papillary_variant",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Classical",
+              "Follicular (encapsulated)",
+              "Follicular (infiltractive)",
+              "Follicular (not specified)",
+              "Oncocytic (Hurthle)",
+              "Tall Cell",
+              "Cribriform-Morular",
+              "Diffuse Sclerosing",
+              "NIFTP (non-invasive follicular variant of papillary)"
+            ],
+            "ancestor": [
+              "primary_histology_type"
+            ],
+            "condition": "Papillary Carcinoma selected"
+          },
+          {
+            "variable_name": "follicular_variant",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Oncocytic (Hurthle)",
+              "Other"
+            ],
+            "ancestor": [
+              "primary_histology_type"
+            ],
+            "condition": "Follicular Carcinoma selected"
+          },
+          {
+            "variable_name": "poorly_diff_variant",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "None",
+              "Insular"
+            ],
+            "ancestor": [
+              "primary_histology_type"
+            ],
+            "condition": "Poorly differentiated selected"
           },
           {
             "variable_name": "tumour_size",
@@ -323,7 +364,7 @@
             ]
           },
           {
-            "variable_name": "angioinvasion",
+            "variable_name": "angio_invasion",
             "input_type": "select",
             "data_type": "string",
             "optionality": "mandatory",
@@ -331,20 +372,21 @@
               "yes",
               "no",
               "cannot be assessed"
-            ],
-            "dependent": [
-              {
-                "variable_name": "angio_invasion_details",
-                "input_type": "select",
-                "data_type": "string",
-                "optionality": "mandatory",
-                "values": [
-                  "More than 4 vessels",
-                  "na"
-                ],
-                "condition": "yes selected"
-              }
             ]
+          },
+          {
+            "variable_name": "angio_invasion_details",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "More than 4 vessels",
+              "na"
+            ],
+            "ancestor": [
+              "angio_invasion"
+            ],
+            "condition": "yes selected"
           },
           {
             "variable_name": "lmyphatic_invasion",
@@ -377,21 +419,22 @@
               "yes",
               "no",
               "cannot be assessed"
-            ],
-            "dependent": [
-              {
-                "variable_name": "ete_details",
-                "input_type": "radio",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "Minimal",
-                  "Extensive",
-                  "na"
-                ],
-                "condition": "yes selected"
-              }
             ]
+          },
+          {
+            "variable_name": "ete_details",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Minimal",
+              "Extensive",
+              "na"
+            ],
+            "ancestor": [
+              "extrathyroidal_extension"
+            ],
+            "condition": "yes selected"
           },
           {
             "variable_name": "lymph_vascular_invasion",
@@ -402,19 +445,21 @@
               "Yes",
               "No",
               "Cannot be assessed"
-            ],
-            "dependent": [
-              {
-                "variable_name": "lvi_details",
-                "input_type": "radio",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "More than 4 vessels",
-                  "n/a"
-                ]
-              }
             ]
+          },
+          {
+            "variable_name": "lvi_details",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "More than 4 vessels",
+              "n/a"
+            ],
+            "ancestor": [
+              "lymph_vascular_invasion"
+            ],
+            "condition": "lymph_vascular_invasion selected as yes"
           }
         ]
       },
@@ -433,49 +478,56 @@
               "Anaplastic",
               "Medullary",
               "Carcinoma Type cannot be determined"
-            ],
-            "dependent": [
-              {
-                "variable_name": "st_papillary_variant",
-                "input_type": "select",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "Classical",
-                  "Follicular (encapsulated)",
-                  "Follicular (infiltractive)",
-                  "Follicular (not specified)",
-                  "Oncocytic (Hurthle)",
-                  "Tall Cell",
-                  "Cribriform-Morular",
-                  "Diffuse Sclerosing",
-                  "NIFTP (non-invasive follicular variant of papillary)"
-                ],
-                "condition": "Papillary Carcinoma selected"
-              },
-              {
-                "variable_name": "st_follicular_variant",
-                "input_type": "select",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "Oncocytic (Hurthle)",
-                  "Other"
-                ],
-                "condition": "Follicular Carcinoma selected"
-              },
-              {
-                "variable_name": "st_poorly_diff_variant",
-                "input_type": "select",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "None",
-                  "Insular"
-                ],
-                "condition": "Poorly differentiated selected"
-              }
             ]
+          },
+          {
+            "variable_name": "st_papillary_variant",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Classical",
+              "Follicular (encapsulated)",
+              "Follicular (infiltractive)",
+              "Follicular (not specified)",
+              "Oncocytic (Hurthle)",
+              "Tall Cell",
+              "Cribriform-Morular",
+              "Diffuse Sclerosing",
+              "NIFTP (non-invasive follicular variant of papillary)"
+            ],
+            "ancestor": [
+              "secondary_histology_type"
+            ],
+            "condition": "Papillary Carcinoma selected"
+          },
+          {
+            "variable_name": "st_follicular_variant",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Oncocytic (Hurthle)",
+              "Other"
+            ],
+            "ancestor": [
+              "secondary_histology_type"
+            ],
+            "condition": "Follicular Carcinoma selected"
+          },
+          {
+            "variable_name": "st_poorly_diff_variant",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "None",
+              "Insular"
+            ],
+            "ancestor": [
+              "secondary_histology_type"
+            ],
+            "condition": "Poorly differentiated selected"
           },
           {
             "variable_name": "st_tumour_size",
@@ -503,20 +555,21 @@
               "yes",
               "no",
               "cannot be assessed"
-            ],
-            "dependent": [
-              {
-                "variable_name": "st_angio_invasion_details",
-                "input_type": "select",
-                "data_type": "string",
-                "optionality": "mandatory",
-                "values": [
-                  "More than 4 vessels",
-                  "na"
-                ],
-                "condition": "yes selected"
-              }
             ]
+          },
+          {
+            "variable_name": "st_angio_invasion_details",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "More than 4 vessels",
+              "na"
+            ],
+            "ancestor": [
+              "st_angio_invasion"
+            ],
+            "condition": "yes selected"
           },
           {
             "variable_name": "st_lmyphatic_invasion",
@@ -549,21 +602,20 @@
               "yes",
               "no",
               "cannot be assessed"
-            ],
-            "dependent": [
-              {
-                "variable_name": "st_ete_details",
-                "input_type": "radio",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "Minimal",
-                  "Extensive",
-                  "na"
-                ],
-                "condition": "yes selected"
-              }
             ]
+          },
+          {
+            "variable_name": "st_ete_details",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Minimal",
+              "Extensive",
+              "na"
+            ],
+            "ancestor": "st_extrathyroidal_extension",
+            "condition": "yes selected"
           },
           {
             "variable_name": "st_lymph_vascular_invasion",
@@ -574,19 +626,19 @@
               "Yes",
               "No",
               "Cannot be assessed"
-            ],
-            "dependent": [
-              {
-                "variable_name": "st_lvi_details",
-                "input_type": "radio",
-                "data_type": "string",
-                "optionality": "optional",
-                "values": [
-                  "More than 4 vessels",
-                  "n/a"
-                ]
-              }
             ]
+          },
+          {
+            "variable_name": "st_lvi_details",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "More than 4 vessels",
+              "n/a"
+            ],
+            "ancestor": "st_lymph_vascular_invasion",
+            "condition": "yes selected"
           }
         ]
       },
@@ -597,59 +649,71 @@
             "variable_name": "total_lymph_nodes",
             "input_type": "text",
             "data_type": "string",
-            "optionality": "madatory",
-            "dependent": [
-              {
-                "variable_name": "ln_na",
-                "input_type": "checkbox",
-                "data_type": "text",
-                "optionality": "optional",
-                "condition": "total_lymph_nodes >= 1",
-                "dependent": [
-                  {
-                    "variable_name": "positive_lymph_nodes",
-                    "input_type": "text",
-                    "data_type": "integer",
-                    "optionality": "mandatory",
-                    "condition": "ln_na not checked and total_lmph_nodes > 0",
-                    "dependent": [
-                      {
-                        "variable_name": "location_lymph_nodes",
-                        "input_type": "select",
-                        "data_type": "text",
-                        "optionality": "mandatory",
-                        "values": [
-                          "N1a(central)",
-                          "N1b(lateral and/or mediastinal",
-                          "N1a/N1b(Central/lateral/mediastinal",
-                          "n/a"
-                        ],
-                        "condition": "positive_lymph_nodes >= 1"
-                      },
-                      {
-                        "variable_name": "extranodal_extension",
-                        "input_type": "select",
-                        "data_type": "string",
-                        "optionality": "mandatory",
-                        "values": [
-                          "yes",
-                          "no",
-                          "cannot be assessed"
-                        ],
-                        "condition": "positive_lymph_nodes >= 1"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "variable_name": "size_ln",
-                "input_type": "text",
-                "data_type": "string",
-                "optionality": "optional",
-                "condition": "total_lymph_nodes >= 1"
-              }
-            ]
+            "optionality": "madatory"
+          },
+          {
+            "variable_name": "ln_na",
+            "input_type": "checkbox",
+            "data_type": "text",
+            "optionality": "optional",
+            "ancestor": [
+              "total_lymph_nodes"
+            ],
+            "condition": "total_lymph_nodes >= 1"
+          },
+          {
+            "variable_name": "positive_lymph_nodes",
+            "input_type": "text",
+            "data_type": "integer",
+            "optionality": "mandatory",
+            "ancestor": [
+              "ln_na",
+              "total_lymph_nodes"
+            ],
+            "condition": "ln_na not checked and total_lmph_nodes > 0"
+          },
+          {
+            "variable_name": "location_lymph_nodes",
+            "input_type": "select",
+            "data_type": "text",
+            "optionality": "mandatory",
+            "values": [
+              "N1a(central)",
+              "N1b(lateral and/or mediastinal",
+              "N1a/N1b(Central/lateral/mediastinal",
+              "n/a"
+            ],
+            "ancestor": [
+              "ln_na",
+              "total_lymph_nodes",
+              "positive_lymph_nodes"
+            ],
+            "condition": "positive_lymph_nodes >= 1"
+          },
+          {
+            "variable_name": "extranodal_extension",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "yes",
+              "no",
+              "cannot be assessed"
+            ],
+            "ancestor": [
+              "ln_na",
+              "total_lymph_nodes",
+              "positive_lymph_nodes"
+            ],
+            "condition": "positive_lymph_nodes >= 1"
+          },
+          {
+            "variable_name": "size_ln",
+            "input_type": "text",
+            "data_type": "string",
+            "optionality": "optional",
+            "ancestor": "total_lymph_nodes",
+            "condition": "total_lymph_nodes >= 1"
           }
         ]
       }
