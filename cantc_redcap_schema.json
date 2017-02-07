@@ -718,5 +718,227 @@
         ]
       }
     ]
+  },
+  {
+    "form_name": "Follow-up Record",
+    "event_name": "Follow up",
+    "longitudinal": true,
+    "sections": [
+      {
+        "section_name": "none",
+        "fields": [
+          {
+            "variable_name": "date_followup",
+            "input_tupe": "date",
+            "data_type": "date",
+            "optionality": "mandatory"
+          },
+          {
+            "variable_name": "lost_followup",
+            "input_tupe": "radio",
+            "data_type": "string",
+            "optionality": "mandatory"
+          },
+          {
+            "variable_name": "disease_status",
+            "input_tupe": "select",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Free of disease",
+              "Recurrence",
+              "Persistent disease",
+              "Unknown"
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Recurrence details",
+        "fields": [
+          {
+            "variable_name": "confirmed_recurrence",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "yes",
+              "no",
+              "n/a"
+            ],
+            "ancestors": [
+              "disease_status"
+            ],
+            "condition": "Recurrence selected"
+          },
+          {
+            "variable_name": "confirmation_method",
+            "input_type": "checkbox",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Pathologically",
+              "RAI",
+              "n/a"
+            ],
+            "ancestors": [
+              "confirmed_recurrence",
+              "disease_status"
+            ],
+            "condition": "Yes selected for confirmed recurrence"
+          },
+          {
+            "variable_name": "not_confirmed_recurrence",
+            "input_type": "checkbox",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Pathological fracture",
+              "Biochemical (Tg or Anti-TgAB)",
+              "Imaging"
+            ],
+            "ancestors": [
+              "confirmed_recurrence",
+              "disease_status"
+            ],
+            "condition": "No selected for confirmed recurrence"
+          }
+        ]
+      },
+      {
+        "section_name": "Persistent disease details",
+        "fields": [
+          {
+            "variable_name": "persistent_disease",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Stable",
+              "Improving",
+              "Progressing"
+            ],
+            "ancestors": [
+              "disease_status"
+            ],
+            "condtition": "Persistent disease selected"
+          },
+          {
+            "variable_name": "disease_location",
+            "input_type": "checkbox",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Neck-Local (Thyroid Bed)",
+              "Neck-Regional (Lateral Neck)",
+              "Neck-not specified",
+              "Mediastinal",
+              "Lung",
+              "Liver",
+              "Brain",
+              "Bone",
+              "Muscle",
+              "Biochemical Evidence of Disease",
+              "Other"
+            ],
+            "ancestors": [
+              "disease_status"
+            ],
+            "condtition": "Persistent disease selected"
+          }
+        ]
+      },
+      {
+        "section_name": "Imaging Results",
+        "fields": [
+          {
+            "variable_name": "imaging_completed",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "yes",
+              "no",
+              "n/a"
+            ],
+            "ancestors": [
+              "disease_status"
+            ],
+            "condition": "disease set tor recurrence, persistent or unknown"
+          }
+        ]
+      },
+      {
+        "section_name": "Primary Imaging Results",
+        "fields": [
+          {
+            "variable_name": "imaging_type",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Ultrasound",
+              "PET",
+              "CT",
+              "MRI",
+              "RAI Diagnostic Scan",
+              "X-ray",
+              "Bone Scan"
+            ],
+            "ancestors": [
+              "imaging_completed"
+            ],
+            "condition": "yes selected"
+          },
+          {
+            "variable_name": "imaging_results",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "No evidence of disease",
+              "Abnormal (indeterminate)",
+              "Persistent structural disease",
+              "Newly identified structural disease"
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Biochemistry",
+        "fields": [
+          {
+            "variable_name": "bw_completed",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "yes",
+              "no",
+              "n/a"
+            ],
+            "ancestors": [
+              "disease_status"
+            ],
+            "condition": "disease set to recurrence, persistent or unknown"
+          },
+          {
+            "variable_name": "type_tc",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Differentiated Thyroid Cancer",
+              "Medullary",
+              "Both (Differentiated and Medullary)"
+            ],
+            "ancestors": [
+              "bw_completed"
+            ],
+            "condition": "bw_completed set to yes"
+          }
+        ]
+      }
+    ]
   }
 ]
