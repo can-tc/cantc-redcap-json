@@ -844,7 +844,7 @@
             "ancestors": [
               "disease_status"
             ],
-            "condtition": "Persistent disease selected"
+            "condtition": "Persistent disease,Recurrence or Unknown selected"
           }
         ]
       },
@@ -864,7 +864,7 @@
             "ancestors": [
               "disease_status"
             ],
-            "condition": "disease set tor recurrence, persistent or unknown"
+            "condition": "disease set to recurrence, persistent or unknown"
           }
         ]
       },
@@ -886,7 +886,8 @@
               "Bone Scan"
             ],
             "ancestors": [
-              "imaging_completed"
+              "imaging_completed",
+              "disease_status"
             ],
             "condition": "yes selected"
           },
@@ -900,7 +901,65 @@
               "Abnormal (indeterminate)",
               "Persistent structural disease",
               "Newly identified structural disease"
-            ]
+            ],
+            "ancestors": [
+              "imaging_completed",
+              "disease_status"
+            ],
+            "condition": "yes selected"
+          },
+          {
+            "variable_name": "additional_imaging",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "yes",
+              "no",
+              "n/a"
+            ],
+            "ancestors": [
+              "imaging_completed",
+              "disease_status"
+            ],
+            "condition": "yes selected"
+          },
+          {
+            "variable_name": "imaging_type_2",
+            "input_type": "select",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Ultrasound",
+              "PET",
+              "CT",
+              "MRI",
+              "RAI Diagnostic Scan",
+              "X-ray",
+              "Bone Scan"
+            ],
+            "ancestors": [
+              "additional_imaging",
+              "imaging_completed"
+            ],
+            "condition": "yes selected"
+          },
+          {
+            "variable_name": "imaging_results_2",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "No evidence of disease",
+              "Abnormal (indeterminate)",
+              "Persistent structural disease",
+              "Newly identified structural disease"
+            ],
+            "ancestors": [
+              "additional_imaging",
+              "imaging_completed"
+            ],
+            "condition": "yes selected"
           }
         ]
       },
@@ -936,6 +995,273 @@
               "bw_completed"
             ],
             "condition": "bw_completed set to yes"
+          }
+        ]
+      },
+      {
+        "section_name": "Differentiated Thyroid Cancer",
+        "fields": [
+          {
+            "variable_name": "biochemical_response",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Biochemical Complete Response",
+              "Biochemical Incomplete Response",
+              "Indeterminate Biochemical Response"
+            ],
+            "ancestors": [
+              "type_tc",
+              "bw_completed"
+            ],
+            "condition": "option 1 or 3 of type_tc"
+          },
+          {
+            "variable_name": "stim_bw",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "rhTSH",
+              "Thyroid Hormone Withdrawal",
+              "Not Stimulated",
+              "Unknown"
+            ],
+            "ancestors": [
+              "type_tc",
+              "bw_completed"
+            ],
+            "condition": "option 1 or 3 of type_tc"
+          }
+        ]
+      },
+      {
+        "section_name": "Medullary Thyroid Cancer",
+        "fields": [
+          {
+            "variable_name": "cea",
+            "input_type": "text",
+            "data_type": "float",
+            "optionality": "optional",
+            "ancestors": [
+              "type_tc",
+              "bw_completed"
+            ],
+            "condition": "option 2 or 3 of type_tc"
+          },
+          {
+            "variable_name": "cea_upperlimit",
+            "input_type": "text",
+            "data_type": "integer",
+            "optionality": "optional",
+            "ancestors": [
+              "type_tc",
+              "bw_completed"
+            ],
+            "condition": "option 2 or 3 of type_tc"
+          },
+          {
+            "variable_name": "cea_units",
+            "input_type": "text",
+            "data_type": "text",
+            "optionality": "optional",
+            "ancestors": [
+              "type_tc",
+              "bw_completed"
+            ],
+            "condition": "option 2 or 3 of type_tc"
+          },
+          {
+            "variable_name": "calcitonin",
+            "input_type": "text",
+            "data_type": "float",
+            "optionality": "optional",
+            "ancestors": [
+              "type_tc",
+              "bw_completed"
+            ],
+            "condition": "option 2 or 3 of type_tc"
+          },
+          {
+            "variable_name": "calcitonin_upperlimit",
+            "input_type": "text",
+            "data_type": "float",
+            "optionality": "optional",
+            "ancestors": [
+              "type_tc",
+              "bw_completed"
+            ],
+            "condition": "option 2 or 3 of type_tc"
+          },
+          {
+            "variable_name": "calcitonin_units",
+            "input_type": "text",
+            "data_type": "text",
+            "optionality": "optional",
+            "ancestors": [
+              "type_tc",
+              "bw_completed"
+            ],
+            "condition": "option 2 or 3 of type_tc"
+          }
+        ]
+      },
+      {
+        "section_name": "RAI Ablation/ Therapy (I-131)",
+        "fields": [
+          {
+            "variable_name": "rai_completed",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "yes",
+              "no",
+              "unknown"
+            ],
+            "ancestors": [
+              "disease_status"
+            ],
+            "condition": "set to 2,3 or 4"
+          },
+          {
+            "variable_name": "rai_dose",
+            "input_type": "text",
+            "data_type": "float",
+            "optionality": "optional",
+            "ancestors": [
+              "rai_completed"
+            ],
+            "condition": "value set to yes"
+          },
+          {
+            "variable_name": "rai_prep",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "rhTSH",
+              "THW",
+              "n/a"
+            ],
+            "ancestors": [
+              "rai_completed"
+            ],
+            "condition": "value set to yes"
+          },
+          {
+            "variable_name": "rai_uptake",
+            "input_type": "checkbox",
+            "data_type": "string",
+            "optionality": "optional",
+            "ancestors": [
+              "rai_completed"
+            ],
+            "condition": "value set to yes"
+          },
+          {
+            "variable_name": "site_uptake",
+            "input_type": "checkbox",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Unknown",
+              "Thyroid Bed",
+              "Lateral Neck",
+              "Lung",
+              "Bone",
+              "Brain",
+              "Liver",
+              "Muscle",
+              "Other"
+            ],
+            "ancestors": [
+              "rai_completed"
+            ],
+            "condition": "rai_completed set to yes and no uptake not checked"
+          }
+        ]
+      },
+      {
+        "section_name": "Other Therapies",
+        "fields": [
+          {
+            "variable_name": "other_therapies",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "yes",
+              "no",
+              "n/a"
+            ],
+            "ancestors": [
+              "disease_status"
+            ],
+            "condition": "set to 2,3 or 4"
+          },
+          {
+            "variable_name": "other_therapy",
+            "input_type": "checkbox",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "External Beam Radiation",
+              "Chemotherapy",
+              "TKI",
+              "Other"
+            ],
+            "ancestors": [
+              "other_therapies",
+              "disease_status"
+            ],
+            "condition": "set to yes"
+          },
+          {
+            "variable_name": "external_beam",
+            "input_type": "checkbox",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Neck",
+              "Distant Mets",
+              "Other"
+            ],
+            "ancestors": [
+              "other_therapy",
+              "other_therapies",
+              "disease_status"
+            ],
+            "condition": "set to External Beam Radiation"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "form_name": "Death Summary",
+    "event_name": "death",
+    "sections": [
+      {
+        "section_name": "none",
+        "fields": [
+          {
+            "variable_name": "age_death",
+            "input_type": "text",
+            "data_type": "integer",
+            "optionality": "optional"
+          },
+          {
+            "variable_name": "death_related_tc",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "yes",
+              "no",
+              "n/a"
+            ]
           }
         ]
       }
