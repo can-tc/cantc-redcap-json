@@ -24,7 +24,7 @@
             ]
           },
           {
-            "variable_name": "postal_code_available",
+            "variable_name": "postalcode_avail",
             "input_type": "radio",
             "data_type": "string",
             "optionality": "mandatory",
@@ -39,42 +39,57 @@
             "data_type": "string",
             "optionality": "mandatory",
             "ancestor": [
-              "postal_code_available"
+              "postalcode_avail"
             ],
-            "condition": "postal_code_available set to yes"
+            "condition": "postalcode_avail set to yes"
           },
           {
-            "variable_name": "income_quintile_at_diagnosis",
+            "variable_name": "iq_diagnosis",
+            "input_type": "text",
+            "data_type": "integer",
+            "optionality": "optional",
             "ancestor": [
-              "postal_code_available"
-            ],
-            "condition": "no selected above"
-          },
-          {
-            "variable_name": "urban_rural_sac_code",
-            "ancestor": [
-              "postal_code_available"
+              "postalcode_avail"
             ],
             "condition": "no selected above"
           },
           {
-            "variable_name": "current_income_quintile",
+            "variable_name": "sac_code_diagnosis",
+            "input_type": "text",
+            "data_type": "integer",
+            "optionality": "optional",
             "ancestor": [
-              "postal_code_available"
+              "postalcode_avail"
             ],
             "condition": "no selected above"
           },
           {
-            "variable_name": "current_urban_rural_code",
+            "variable_name": "currnent_iq",
+            "input_type": "text",
+            "data_type": "integer",
+            "optionality": "optional",
             "ancestor": [
-              "postal_code_available"
+              "postalcode_avail"
             ],
             "condition": "no selected above"
           },
           {
-            "variable_name": "geographical_distance_to_tertiary_centre",
+            "variable_name": "sa_code_current",
+            "input_type": "text",
+            "data_type": "integer",
+            "optionality": "optional",
             "ancestor": [
-              "postal_code_available"
+              "postalcode_avail"
+            ],
+            "condition": "no selected above"
+          },
+          {
+            "variable_name": "distance_tertiary",
+            "input_type": "text",
+            "data_type": "float",
+            "optionality": "optional",
+            "ancestor": [
+              "postalcode_avail"
             ],
             "condition": "no selected above"
           }
@@ -84,7 +99,7 @@
         "section_name": "Location of Surgery",
         "fields": [
           {
-            "variable_name": "country_of_surgery",
+            "variable_name": "country_s",
             "input_type": "radio",
             "data_type": "string",
             "optionality": "mandatory",
@@ -94,14 +109,14 @@
             ]
           },
           {
-            "variable_name": "city_of_surgery",
+            "variable_name": "city_surgery",
             "input_type": "select",
             "data_type": "string",
             "optionality": "optional",
             "ancestor": [
-              "country_of_surgery"
+              "country_s"
             ],
-            "condition": "country_of_surgery set to canada"
+            "condition": "country_s set to canada"
           },
           {
             "variable_name": "hospital_fs",
@@ -109,8 +124,8 @@
             "data_type": "string",
             "optionality": "optional",
             "ancestor": [
-              "city_of_surgery",
-              "country_of_surgery"
+              "city_surgery",
+              "country_s"
             ],
             "condition": "city of surgery is not null"
           },
@@ -120,8 +135,8 @@
             "date_type": "string",
             "optionality": "optional",
             "ancestor": [
-              "city_of_surgery",
-              "country_of_surgery"
+              "city_surgery",
+              "country_s"
             ],
             "condition": "hospital_fs is not null"
           }
@@ -131,7 +146,7 @@
         "section_name": "Family History of Thyroid Cancer",
         "fields": [
           {
-            "variable_name": "first_degree_family_history",
+            "variable_name": "family_history",
             "input_type": "radio",
             "data_type": "string",
             "optionality": "optional",
@@ -147,7 +162,7 @@
         "section_name": "Prior Radiation Exposure",
         "fields": [
           {
-            "variable_name": "prior_radiation_exposure",
+            "variable_name": "radiation_exposure",
             "input_type": "radio",
             "data_type": "string",
             "optionality": "optional",
@@ -186,7 +201,7 @@
             ]
           },
           {
-            "variable_name": "throid_surgery_type",
+            "variable_name": "ts_type",
             "input_type": "radio",
             "data_type": "string",
             "optionality": "optional",
@@ -201,7 +216,59 @@
             "condition": "thyroid selected"
           },
           {
-            "variable_name": "neck_dissection_type",
+            "variable_name": "hemi_side",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Left",
+              "Right"
+            ],
+            "ancestor": [
+              "ts_type",
+              "surgery_type"
+            ],
+            "condition": "ts_type set to hemi"
+          },
+          {
+            "variable_name": "completion_date",
+            "input_type": "date",
+            "data_type": "date",
+            "optionality": "mandatory",
+            "ancestor": [
+              "ts_type",
+              "surgery_type"
+            ],
+            "condition": "ts_type set to hemi"
+          },
+          {
+            "variable_name": "lobectomy_side",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": [
+              "Left",
+              "Right"
+            ],
+            "ancestor": [
+              "ts_type",
+              "surgery_type"
+            ],
+            "condition": "ts_type set to lobectomy"
+          },
+          {
+            "variable_name": "lobectomy_completion_date",
+            "input_type": "date",
+            "data_type": "date",
+            "optionality": "optional",
+            "ancestor": [
+              "ts_type",
+              "surgery_type"
+            ],
+            "condition": "ts_type set to hemi"
+          },
+          {
+            "variable_name": "neck_dissection_side",
             "input_type": "checkbox",
             "data_type": "string",
             "optionality": "mandatory",
@@ -212,7 +279,7 @@
             ],
             "ancestor": [
               "surgery_type",
-              "throid_surgery_type"
+              "ts_type"
             ],
             "condition": "neck dissection selected"
           },
@@ -225,11 +292,11 @@
               "Left",
               "Right",
               "Left/Right",
-              "na"
+              "n/a"
             ],
             "ancestor": [
-              "neck_dissection_type",
-              "throid_surgery_type",
+              "neck_dissection_side",
+              "ts_type",
               "surgery_type"
             ],
             "condition": "Central selected"
@@ -246,8 +313,8 @@
               "na"
             ],
             "ancestor": [
-              "neck_dissection_type",
-              "throid_surgery_type",
+              "neck_dissection_side",
+              "ts_type",
               "surgery_type"
             ],
             "condition": "Lateral selected"
@@ -269,13 +336,13 @@
             ]
           },
           {
-            "variable_name": "histology_type",
+            "variable_name": "is_multiple_histology",
             "input_type": "radio",
             "data_type": "string",
             "optionality": "mandatory",
             "values": [
-              "Single",
-              "Multiple"
+              "no",
+              "yes"
             ]
           }
         ]
@@ -381,7 +448,7 @@
             "optionality": "mandatory",
             "values": [
               "More than 4 vessels",
-              "na"
+              "n/a"
             ],
             "ancestor": [
               "angio_invasion"
@@ -478,7 +545,11 @@
               "Anaplastic",
               "Medullary",
               "Carcinoma Type cannot be determined"
-            ]
+            ],
+            "ancestor": [
+              "is_multiple_histology"
+            ],
+            "condition": "is_multiple_histology set to yes"
           },
           {
             "variable_name": "st_papillary_variant",
@@ -497,13 +568,14 @@
               "NIFTP (non-invasive follicular variant of papillary)"
             ],
             "ancestor": [
-              "secondary_histology_type"
+              "secondary_histology_type",
+              "is_multiple_histology"
             ],
             "condition": "Papillary Carcinoma selected"
           },
           {
             "variable_name": "st_follicular_variant",
-            "input_type": "select",
+            "input_type": "radio",
             "data_type": "string",
             "optionality": "optional",
             "values": [
@@ -511,13 +583,14 @@
               "Other"
             ],
             "ancestor": [
-              "secondary_histology_type"
+              "secondary_histology_type",
+              "is_multiple_histology"
             ],
             "condition": "Follicular Carcinoma selected"
           },
           {
             "variable_name": "st_poorly_diff_variant",
-            "input_type": "select",
+            "input_type": "radio",
             "data_type": "string",
             "optionality": "optional",
             "values": [
@@ -525,7 +598,8 @@
               "Insular"
             ],
             "ancestor": [
-              "secondary_histology_type"
+              "secondary_histology_type",
+              "is_multiple_histology"
             ],
             "condition": "Poorly differentiated selected"
           },
@@ -544,7 +618,11 @@
               "yes",
               "no",
               "cannot be assessed"
-            ]
+            ],
+            "ancestor": [
+              "is_multiple_histology"
+            ],
+            "condition": "is_multiple_histology set to yes"
           },
           {
             "variable_name": "st_angio_invasion",
@@ -555,7 +633,11 @@
               "yes",
               "no",
               "cannot be assessed"
-            ]
+            ],
+            "ancestor": [
+              "is_multiple_histology"
+            ],
+            "condition": "is_multiple_histology set to yes"
           },
           {
             "variable_name": "st_angio_invasion_details",
@@ -567,7 +649,8 @@
               "na"
             ],
             "ancestor": [
-              "st_angio_invasion"
+              "st_angio_invasion",
+              "is_multiple_histology"
             ],
             "condition": "yes selected"
           },
@@ -580,7 +663,11 @@
               "yes",
               "no",
               "cannot be assessed"
-            ]
+            ],
+            "ancestor": [
+              "is_multiple_histology"
+            ],
+            "condition": "is_multiple_histology set to yes"
           },
           {
             "variable_name": "st_perineural_invasion",
@@ -591,10 +678,14 @@
               "yes",
               "no",
               "cannot be assessed"
-            ]
+            ],
+            "ancestor": [
+              "is_multiple_histology"
+            ],
+            "condition": "is_multiple_histology set to yes"
           },
           {
-            "variable_name": "st_extrathyroidal_extension",
+            "variable_name": "st_extrathy_extension",
             "input_type": "select",
             "data_type": "string",
             "optionality": "mandatory",
@@ -602,7 +693,11 @@
               "yes",
               "no",
               "cannot be assessed"
-            ]
+            ],
+            "ancestor": [
+              "is_multiple_histology"
+            ],
+            "condition": "is_multiple_histology set to yes"
           },
           {
             "variable_name": "st_ete_details",
@@ -614,7 +709,10 @@
               "Extensive",
               "na"
             ],
-            "ancestor": "st_extrathyroidal_extension",
+            "ancestor": [
+              "st_extrathyroidal_extension",
+              "is_multiple_histology"
+            ],
             "condition": "yes selected"
           },
           {
@@ -626,7 +724,11 @@
               "Yes",
               "No",
               "Cannot be assessed"
-            ]
+            ],
+            "ancestor": [
+              "is_multiple_histology"
+            ],
+            "condition": "is_multiple_histology set to yes"
           },
           {
             "variable_name": "st_lvi_details",
@@ -637,7 +739,9 @@
               "More than 4 vessels",
               "n/a"
             ],
-            "ancestor": "st_lymph_vascular_invasion",
+            "ancestor": [
+              "st_lymph_vascular_invasion"
+            ],
             "condition": "yes selected"
           }
         ]
@@ -648,8 +752,8 @@
           {
             "variable_name": "total_lymph_nodes",
             "input_type": "text",
-            "data_type": "string",
-            "optionality": "madatory"
+            "data_type": "integer",
+            "optionality": "mandatory"
           },
           {
             "variable_name": "ln_na",
@@ -766,7 +870,7 @@
               "no",
               "n/a"
             ],
-            "ancestors": [
+            "ancestor": [
               "disease_status"
             ],
             "condition": "Recurrence selected"
@@ -781,7 +885,7 @@
               "RAI",
               "n/a"
             ],
-            "ancestors": [
+            "ancestor": [
               "confirmed_recurrence",
               "disease_status"
             ],
@@ -797,7 +901,7 @@
               "Biochemical (Tg or Anti-TgAB)",
               "Imaging"
             ],
-            "ancestors": [
+            "ancestor": [
               "confirmed_recurrence",
               "disease_status"
             ],
@@ -818,7 +922,7 @@
               "Improving",
               "Progressing"
             ],
-            "ancestors": [
+            "ancestor": [
               "disease_status"
             ],
             "condtition": "Persistent disease selected"
@@ -841,7 +945,7 @@
               "Biochemical Evidence of Disease",
               "Other"
             ],
-            "ancestors": [
+            "ancestor": [
               "disease_status"
             ],
             "condtition": "Persistent disease,Recurrence or Unknown selected"
@@ -861,7 +965,7 @@
               "no",
               "n/a"
             ],
-            "ancestors": [
+            "ancestor": [
               "disease_status"
             ],
             "condition": "disease set to recurrence, persistent or unknown"
@@ -885,7 +989,7 @@
               "X-ray",
               "Bone Scan"
             ],
-            "ancestors": [
+            "ancestor": [
               "imaging_completed",
               "disease_status"
             ],
@@ -902,7 +1006,7 @@
               "Persistent structural disease",
               "Newly identified structural disease"
             ],
-            "ancestors": [
+            "ancestor": [
               "imaging_completed",
               "disease_status"
             ],
@@ -918,7 +1022,7 @@
               "no",
               "n/a"
             ],
-            "ancestors": [
+            "ancestor": [
               "imaging_completed",
               "disease_status"
             ],
@@ -938,7 +1042,7 @@
               "X-ray",
               "Bone Scan"
             ],
-            "ancestors": [
+            "ancestor": [
               "additional_imaging",
               "imaging_completed"
             ],
@@ -955,7 +1059,7 @@
               "Persistent structural disease",
               "Newly identified structural disease"
             ],
-            "ancestors": [
+            "ancestor": [
               "additional_imaging",
               "imaging_completed"
             ],
@@ -976,7 +1080,7 @@
               "no",
               "n/a"
             ],
-            "ancestors": [
+            "ancestor": [
               "disease_status"
             ],
             "condition": "disease set to recurrence, persistent or unknown"
@@ -991,7 +1095,7 @@
               "Medullary",
               "Both (Differentiated and Medullary)"
             ],
-            "ancestors": [
+            "ancestor": [
               "bw_completed"
             ],
             "condition": "bw_completed set to yes"
@@ -1011,7 +1115,7 @@
               "Biochemical Incomplete Response",
               "Indeterminate Biochemical Response"
             ],
-            "ancestors": [
+            "ancestor": [
               "type_tc",
               "bw_completed"
             ],
@@ -1028,7 +1132,7 @@
               "Not Stimulated",
               "Unknown"
             ],
-            "ancestors": [
+            "ancestor": [
               "type_tc",
               "bw_completed"
             ],
@@ -1044,7 +1148,7 @@
             "input_type": "text",
             "data_type": "float",
             "optionality": "optional",
-            "ancestors": [
+            "ancestor": [
               "type_tc",
               "bw_completed"
             ],
@@ -1055,7 +1159,7 @@
             "input_type": "text",
             "data_type": "integer",
             "optionality": "optional",
-            "ancestors": [
+            "ancestor": [
               "type_tc",
               "bw_completed"
             ],
@@ -1066,7 +1170,7 @@
             "input_type": "text",
             "data_type": "text",
             "optionality": "optional",
-            "ancestors": [
+            "ancestor": [
               "type_tc",
               "bw_completed"
             ],
@@ -1077,7 +1181,7 @@
             "input_type": "text",
             "data_type": "float",
             "optionality": "optional",
-            "ancestors": [
+            "ancestor": [
               "type_tc",
               "bw_completed"
             ],
@@ -1088,7 +1192,7 @@
             "input_type": "text",
             "data_type": "float",
             "optionality": "optional",
-            "ancestors": [
+            "ancestor": [
               "type_tc",
               "bw_completed"
             ],
@@ -1099,7 +1203,7 @@
             "input_type": "text",
             "data_type": "text",
             "optionality": "optional",
-            "ancestors": [
+            "ancestor": [
               "type_tc",
               "bw_completed"
             ],
@@ -1119,18 +1223,14 @@
               "yes",
               "no",
               "unknown"
-            ],
-            "ancestors": [
-              "disease_status"
-            ],
-            "condition": "set to 2,3 or 4"
+            ]
           },
           {
             "variable_name": "rai_dose",
             "input_type": "text",
             "data_type": "float",
             "optionality": "optional",
-            "ancestors": [
+            "ancestor": [
               "rai_completed"
             ],
             "condition": "value set to yes"
@@ -1145,17 +1245,17 @@
               "THW",
               "n/a"
             ],
-            "ancestors": [
+            "ancestor": [
               "rai_completed"
             ],
             "condition": "value set to yes"
           },
           {
-            "variable_name": "rai_uptake",
+            "variable_name": "no_uptake",
             "input_type": "checkbox",
             "data_type": "string",
             "optionality": "optional",
-            "ancestors": [
+            "ancestor": [
               "rai_completed"
             ],
             "condition": "value set to yes"
@@ -1176,8 +1276,9 @@
               "Muscle",
               "Other"
             ],
-            "ancestors": [
-              "rai_completed"
+            "ancestor": [
+              "rai_completed",
+              "no_uptake"
             ],
             "condition": "rai_completed set to yes and no uptake not checked"
           }
@@ -1196,7 +1297,7 @@
               "no",
               "n/a"
             ],
-            "ancestors": [
+            "ancestor": [
               "disease_status"
             ],
             "condition": "set to 2,3 or 4"
@@ -1212,7 +1313,7 @@
               "TKI",
               "Other"
             ],
-            "ancestors": [
+            "ancestor": [
               "other_therapies",
               "disease_status"
             ],
@@ -1228,7 +1329,7 @@
               "Distant Mets",
               "Other"
             ],
-            "ancestors": [
+            "ancestor": [
               "other_therapy",
               "other_therapies",
               "disease_status"
