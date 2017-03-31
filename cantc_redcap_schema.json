@@ -242,15 +242,23 @@
             "condition": "ts_type set to hemi"
           },
           {
+            "variable_name": "is_completion",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "mandatory",
+            "values": ["Yes","No","Unknown"],
+            "ancestor": ["ts_type", "surgery_type"],
+            "condition": "ts_type set to hemi"
+          },
+          {
             "variable_name": "completion_date",
             "input_type": "date",
             "data_type": "date",
-            "optionality": "mandatory",
+            "optionality": "optional",
             "ancestor": [
-              "ts_type",
-              "surgery_type"
+              "is_completion"
             ],
-            "condition": "ts_type set to hemi"
+            "condition": ""
           },
           {
             "variable_name": "lobectomy_side",
