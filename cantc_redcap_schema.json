@@ -167,10 +167,21 @@
             "data_type": "string",
             "optionality": "optional",
             "values": [
-              "Therpeutic",
-              "non_diagnostic",
-              "none",
+              "Yes",
+              "No",
+              "Unknown",
               "n/a"
+            ]
+          },
+          {
+            "variable_name": "radiation_exposure_details",
+            "input_type": "radio",
+            "data_type": "string",
+            "optionality": "optional",
+            "values": [
+              "Therapeutic",
+              "Non-diagnostic",
+              "Unknown"
             ]
           }
         ]
