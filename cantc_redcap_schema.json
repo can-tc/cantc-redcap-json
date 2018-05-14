@@ -420,7 +420,7 @@
           },
           {
             "variable_name": "poorly_diff_variant",
-            "input_type": "select",
+            "input_type": "radio",
             "data_type": "string",
             "optionality": "optional",
             "values": [
